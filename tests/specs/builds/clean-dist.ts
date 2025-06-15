@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import { testSuite, expect } from 'manten';
 import { createFixture } from 'fs-fixture';
-import { pkgroll } from '../../utils.js';
+import { bundlify } from '../../utils.js';
 import { packageFixture, createPackageJson } from '../../fixtures.js';
 
 export default testSuite(({ describe }, nodePath: string) => {
@@ -16,7 +16,7 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			await pkgroll(
+			await bundlify(
 				[],
 				{
 					cwd: fixture.path,
@@ -33,7 +33,7 @@ export default testSuite(({ describe }, nodePath: string) => {
 				types: './dist/nested2/index.d.ts',
 			});
 
-			const pkgrollProcess = await pkgroll(
+			const bundlifyProcess = await bundlify(
 				[],
 				{
 					cwd: fixture.path,
@@ -41,8 +41,8 @@ export default testSuite(({ describe }, nodePath: string) => {
 				},
 			);
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			expect(await fixture.exists('dist/nested/index.js')).toBe(true);
 			expect(await fixture.exists('dist/nested/index.mjs')).toBe(true);
@@ -62,7 +62,7 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			await pkgroll(
+			await bundlify(
 				[],
 				{
 					cwd: fixture.path,
@@ -79,7 +79,7 @@ export default testSuite(({ describe }, nodePath: string) => {
 				types: './dist/nested2/index.d.ts',
 			});
 
-			const pkgrollProcess = await pkgroll(
+			const bundlifyProcess = await bundlify(
 				['--clean-dist'],
 				{
 					cwd: fixture.path,
@@ -87,8 +87,8 @@ export default testSuite(({ describe }, nodePath: string) => {
 				},
 			);
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			expect(await fixture.exists('dist/nested/index.js')).toBe(false);
 			expect(await fixture.exists('dist/nested/index.mjs')).toBe(false);

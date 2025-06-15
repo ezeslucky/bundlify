@@ -1,6 +1,6 @@
 import { testSuite, expect } from 'manten';
 import { createFixture } from 'fs-fixture';
-import { pkgroll } from '../../utils.js';
+import { bundlify } from '../../utils.js';
 import {
 	installTypeScript,
 	createPackageJson,
@@ -30,13 +30,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/dependency-external.js', 'utf8');
 			expect(content).toMatch('require(\'@org/name/path\')');
@@ -65,12 +65,12 @@ export default testSuite(({ describe }, nodePath: string) => {
 				...installTypeScript,
 			});
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/index.d.ts', 'utf8');
 			expect(content).toMatch('from \'pkg\'');
@@ -92,12 +92,12 @@ export default testSuite(({ describe }, nodePath: string) => {
 				...installTypeScript,
 			});
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/index.d.ts', 'utf8');
 			expect(content).toBe('declare const A: { b: number };\n\nexport { A };\n');
@@ -127,12 +127,12 @@ export default testSuite(({ describe }, nodePath: string) => {
 				...installTypeScript,
 			});
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe(
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe(
 				'Recommendation: "@types/react" is externalized because "react" is in "dependencies". Place "@types/react" in "dependencies" as well so users don\'t have missing types.',
 			);
 
@@ -149,13 +149,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				fixtureDependencyExportsMap('./dist/dependency-exports-require.js'),
 			);
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/dependency-exports-require.js', 'utf8');
 			expect(content).toMatch('cjs');
@@ -166,13 +166,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				fixtureDependencyExportsMap('./dist/dependency-exports-import.js'),
 			);
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/dependency-exports-import.js', 'utf8');
 			expect(content).toMatch('esm');
@@ -181,13 +181,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 		test('imports map - default', async () => {
 			await using fixture = await createFixture(fixtureDependencyImportsMap);
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/dependency-imports-map.js', 'utf8');
 			expect(content).toMatch('default');
@@ -196,13 +196,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 		test('imports map - node', async () => {
 			await using fixture = await createFixture(fixtureDependencyImportsMap);
 
-			const pkgrollProcess = await pkgroll(['--export-condition=node'], {
+			const bundlifyProcess = await bundlify(['--export-condition=node'], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/dependency-imports-map.js', 'utf8');
 			expect(content).toMatch('node');

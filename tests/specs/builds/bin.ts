@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import { testSuite, expect } from 'manten';
 import { createFixture } from 'fs-fixture';
-import { pkgroll } from '../../utils.js';
+import { bundlify } from '../../utils.js';
 import { packageFixture, createPackageJson } from '../../fixtures.js';
 
 export default testSuite(({ describe }, nodePath: string) => {
@@ -15,13 +15,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			await test('is executable', async () => {
 				const content = await fixture.readFile('dist/subpath/bin.mjs', 'utf8');
@@ -48,13 +48,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			expect(await fixture.exists('dist/index.mjs')).toBe(true);
 			expect(await fixture.exists('dist/index.js')).toBe(true);
@@ -68,13 +68,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/dynamic-require.mjs', 'utf8');
 			expect(content.startsWith('#!/usr/bin/env node')).toBeTruthy();
@@ -91,13 +91,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			expect(await fixture.exists('dist/index.mjs')).toBe(true);
 		});

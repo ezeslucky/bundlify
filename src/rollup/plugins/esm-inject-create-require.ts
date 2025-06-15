@@ -4,7 +4,7 @@ import { walk } from 'estree-walker';
 import type { Plugin } from 'rollup';
 
 export const esmInjectCreateRequire = (): Plugin => {
-	const createRequire = 'import{createRequire as _pkgrollCR}from"node:module";const require=_pkgrollCR(import.meta.url);';
+	const createRequire = 'import{createRequire as _bundlifyCR}from"node:module";const require=_bundlifyCR(import.meta.url);';
 
 	return {
 		name: 'esmInjectCreateRequire',

@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import { testSuite, expect } from 'manten';
 import { createFixture } from 'fs-fixture';
-import { pkgroll } from '../../utils.js';
+import { bundlify } from '../../utils.js';
 import { packageFixture, createPackageJson } from '../../fixtures.js';
 
 export default testSuite(({ describe }, nodePath: string) => {
@@ -17,12 +17,12 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const files = await fs.readdir(fixture.getPath('dist'));
 			files.sort();

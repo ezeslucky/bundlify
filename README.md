@@ -2,14 +2,14 @@
 	<img width="130" src=".github/logo.webp">
 </p>
 <h1 align="center">
-	<sup>pkgroll</sup>
+	<sup>bundlify</sup>
 	<br>
-	<a href="https://npm.im/pkgroll"><img src="https://badgen.net/npm/v/pkgroll"></a> <a href="https://npm.im/pkgroll"><img src="https://badgen.net/npm/dm/pkgroll"></a>
+	<a href="https://npm.im/bundlify"><img src="https://badgen.net/npm/v/bundlify"></a> <a href="https://npm.im/bundlify"><img src="https://badgen.net/npm/dm/bundlify"></a>
 </h1>
 
-_pkgroll_ is a JavaScript package bundler powered by Rollup that automatically builds your package from entry-points defined in `package.json`. No config necessary!
+_bundlify_ is a JavaScript package bundler powered by Rollup that automatically builds your package from entry-points defined in `package.json`. No config necessary!
 
-Write your code in TypeScript/ESM and run `pkgroll` to get ESM/CommonJS/.d.ts outputs!
+Write your code in TypeScript/ESM and run `bundlify` to get ESM/CommonJS/.d.ts outputs!
 
 ### Features
 - ✅ `package.json#exports` to define entry-points
@@ -22,14 +22,14 @@ Write your code in TypeScript/ESM and run `pkgroll` to get ESM/CommonJS/.d.ts ou
 <br>
 
 <p align="center">
-	<a href="https://github.com/sponsors/privatenumber/sponsorships?tier_id=398771"><img width="412" src="https://raw.githubusercontent.com/privatenumber/sponsors/master/banners/assets/donate.webp"></a>
-	<a href="https://github.com/sponsors/privatenumber/sponsorships?tier_id=397608"><img width="412" src="https://raw.githubusercontent.com/privatenumber/sponsors/master/banners/assets/sponsor.webp"></a>
+	<a href="https://github.com/sponsors/ezeslucky/sponsorships?tier_id=398771"><img width="412" src="https://raw.githubusercontent.com/ezeslucky/sponsors/master/banners/assets/donate.webp"></a>
+	<a href="https://github.com/sponsors/ezeslucky/sponsorships?tier_id=397608"><img width="412" src="https://raw.githubusercontent.com/ezeslucky/sponsors/master/banners/assets/sponsor.webp"></a>
 </p>
-<p align="center"><sup><i>Already a sponsor?</i> Join the discussion in the <a href="https://github.com/pvtnbr/pkgroll">Development repo</a>!</sup></p>
+<p align="center"><sup><i>Already a sponsor?</i> Join the discussion in the <a href="https://github.com/pvtnbr/bundlify">Development repo</a>!</sup></p>
 
 ## Install
 ```sh
-npm install --save-dev pkgroll
+npm install --save-dev bundlify
 ```
 
 ## Quick setup
@@ -39,7 +39,7 @@ npm install --save-dev pkgroll
 
     [These configurations](https://nodejs.org/api/packages.html#package-entry-points) are for Node.js to determine how to import the package.
 
-    Pkgroll leverages the same configuration to determine how to build the package.
+    bundlify leverages the same configuration to determine how to build the package.
 
 	```json5
 	{
@@ -68,9 +68,9 @@ npm install --save-dev pkgroll
 	    // bin files will be compiled to be executable with the Node.js hashbang
 	    "bin": "./dist/cli.js",
 
-	    // (Optional) Add a build script referencing `pkgroll`
+	    // (Optional) Add a build script referencing `bundlify`
 	    "scripts": {
-	        "build": "pkgroll",
+	        "build": "bundlify",
 	    },
 
 	    // ...
@@ -81,18 +81,18 @@ npm install --save-dev pkgroll
 
 3. Package roll!
 	```sh
-	npm run build # or npx pkgroll
+	npm run build # or npx bundlify
 	```
 
 ## Usage
 
 ### Entry-points
-_Pkgroll_ parses package entry-points from `package.json` by reading properties `main`, `module`, `types`, and `exports`.
+_bundlify_ parses package entry-points from `package.json` by reading properties `main`, `module`, `types`, and `exports`.
 
 The paths in `./dist` are mapped to paths in `./src` (configurable with `--src` and `--dist` flags) to determine bundle entry-points.
 
 ### Output formats
-_Pkgroll_ detects the format for each entry-point based on the file extension or the `package.json` property it's placed in, using the [same lookup logic as Node.js](https://nodejs.org/api/packages.html#determining-module-system).
+_bundlify_ detects the format for each entry-point based on the file extension or the `package.json` property it's placed in, using the [same lookup logic as Node.js](https://nodejs.org/api/packages.html#determining-module-system).
 
 | `package.json` property | Output format |
 | - | - |
@@ -146,10 +146,10 @@ When generating type declarations (`.d.ts` files), this also bundles and tree-sh
 
 You can configure aliases using the [import map](https://nodejs.org/api/packages.html#imports) in `package.json#imports`.
 
-In Node.js, import mappings must start with `#` to indicate an internal [subpath import](https://nodejs.org/api/packages.html#subpath-imports). However, _Pkgroll_ allows defining aliases **without** the `#` prefix.
+In Node.js, import mappings must start with `#` to indicate an internal [subpath import](https://nodejs.org/api/packages.html#subpath-imports). However, _bundlify_ allows defining aliases **without** the `#` prefix.
 
 > [!NOTE]
-> While Node.js supports conditional imports (e.g., different paths for Node.js vs. browsers), _Pkgroll_ does not.
+> While Node.js supports conditional imports (e.g., different paths for Node.js vs. browsers), _bundlify_ does not.
 
 Example:
 
@@ -189,7 +189,7 @@ You can also define aliases in `tsconfig.json` using `compilerOptions.paths`:
 
 ### Target
 
-_Pkgroll_ uses [esbuild](https://esbuild.github.io/) to handle TypeScript and JavaScript transformation and minification.
+_bundlify_ uses [esbuild](https://esbuild.github.io/) to handle TypeScript and JavaScript transformation and minification.
 
 The target specifies the environments the output should support. Depending on how new the target is, it can generate less code using newer syntax. Read more about it in the [esbuild docs](https://esbuild.github.io/api/#target).
 
@@ -197,7 +197,7 @@ The target specifies the environments the output should support. Depending on ho
 By default, the target is set to the version of Node.js used. It can be overwritten with the `--target` flag:
 
 ```sh
-pkgroll --target=es2020 --target=node14.18.0
+bundlify --target=es2020 --target=node14.18.0
 ```
 
 It will also automatically detect and include the `target` specified in `tsconfig.json#compilerOptions`.
@@ -215,15 +215,15 @@ This is a new feature and may not work in older versions of Node.js. While you c
 Pass in a Node.js target that that doesn't support it to strip the `node:` protocol from imports:
 
 ```sh
-pkgroll --target=node12.19
+bundlify --target=node12.19
 ```
 
 ### Custom `tsconfig.json` path
 
-By default, _Pkgroll_ looks for `tsconfig.json` configuration file in the current working directory. You can pass in a custom `tsconfig.json` path with the `--tsconfig` flag:
+By default, _bundlify_ looks for `tsconfig.json` configuration file in the current working directory. You can pass in a custom `tsconfig.json` path with the `--tsconfig` flag:
 
 ```sh
-pkgroll --tsconfig=tsconfig.build.json
+bundlify --tsconfig=tsconfig.build.json
 ```
 
 ### Export condition
@@ -232,7 +232,7 @@ Similarly to the target, the export condition specifies which fields to read fro
 
 For example, to simulate import resolutions in Node.js, pass in `node` as the export condition:
 ```sh
-pkgroll --export-condition=node
+bundlify --export-condition=node
 ```
 
 
@@ -240,51 +240,51 @@ pkgroll --export-condition=node
 
 Node.js ESM offers [interoperability with CommonJS](https://nodejs.org/api/esm.html#interoperability-with-commonjs) via [static analysis](https://github.com/nodejs/cjs-module-lexer). However, not all bundlers compile ESM to CJS syntax in a way that is statically analyzable.
 
-Because _pkgroll_ uses Rollup, it's able to produce CJS modules that are minimal and interoperable with Node.js ESM.
+Because _bundlify_ uses Rollup, it's able to produce CJS modules that are minimal and interoperable with Node.js ESM.
 
 This means you can technically output in CommonJS to get ESM and CommonJS support.
 
 #### `require()` in ESM
 Sometimes it's useful to use `require()` or `require.resolve()` in ESM. ESM code that uses `require()` can be seamlessly compiled to CommonJS, but when compiling to ESM, Node.js will error because `require` doesn't exist in the module scope.
 
-When compiling to ESM, _Pkgroll_ detects `require()` usages and shims it with [`createRequire(import.meta.url)`](https://nodejs.org/api/module.html#modulecreaterequirefilename).
+When compiling to ESM, _bundlify_ detects `require()` usages and shims it with [`createRequire(import.meta.url)`](https://nodejs.org/api/module.html#modulecreaterequirefilename).
 
 ### Environment variables
 Pass in compile-time environment variables with the `--env` flag.
 
 This will replace all instances of `process.env.NODE_ENV` with `'production'` and remove unused code:
 ```sh
-pkgroll --env.NODE_ENV=production
+bundlify --env.NODE_ENV=production
 ```
 
 ### Minification
 Pass in the `--minify` flag to minify assets.
 ```sh
-pkgroll --minify
+bundlify --minify
 ```
 
 ### Watch mode
 Run the bundler in watch mode during development:
 ```sh
-pkgroll --watch
+bundlify --watch
 ```
 
 ### Clean dist
 Clean dist directory before bundling:
 ```sh
-pkgroll --clean-dist
+bundlify --clean-dist
 ```
 
 ### Source maps
 Pass in the `--sourcemap` flag to emit a source map file:
 
 ```sh
-pkgroll --sourcemap
+bundlify --sourcemap
 ```
 
 Or to inline them in the distribution files:
 ```sh
-pkgroll --sourcemap=inline
+bundlify --sourcemap=inline
 ```
 
 ## Dev vs Prod config
@@ -332,16 +332,16 @@ The following fields can be overridden using `publishConfig`:
 
 They are similar bundlers, but I think the main differences are:
 
-- _pkgroll_ is zero-config. It reads the entry-points declared in your `package.json` to determine how to bundle the package. _tsup_ requires manual configuration.
+- _bundlify_ is zero-config. It reads the entry-points declared in your `package.json` to determine how to bundle the package. _tsup_ requires manual configuration.
 
-- _pkgroll_ is a thin abstraction over Rollup (just smartly configures it). Similarly, _tsup_ is a thin abstraction over esbuild. _pkgroll_ also uses esbuild for transformations & minification as a Rollup plugin, but the bundling & tree-shaking is done by Rollup (which is [known to output best/cleanest code](#why-bundle-with-rollup)). However, when _tsup_ emits type declaration, it also uses Rollup which negates the performance benefits from using esbuild.
+- _bundlify_ is a thin abstraction over Rollup (just smartly configures it). Similarly, _tsup_ is a thin abstraction over esbuild. _bundlify_ also uses esbuild for transformations & minification as a Rollup plugin, but the bundling & tree-shaking is done by Rollup (which is [known to output best/cleanest code](#why-bundle-with-rollup)). However, when _tsup_ emits type declaration, it also uses Rollup which negates the performance benefits from using esbuild.
 
-- IIRC because _tsup_ uses esbuild, the ESM to CJS compilation wasn't great compared to Rollups. As a package maintainer who wants to support both ESM and CJS exports, this was one of the biggest limitations of using _tsup_ (which compelled me to develop _pkgroll_).
+- IIRC because _tsup_ uses esbuild, the ESM to CJS compilation wasn't great compared to Rollups. As a package maintainer who wants to support both ESM and CJS exports, this was one of the biggest limitations of using _tsup_ (which compelled me to develop _bundlify_).
 
 ## Sponsors
 
 <p align="center">
-	<a href="https://github.com/sponsors/privatenumber">
-		<img src="https://cdn.jsdelivr.net/gh/privatenumber/sponsors/sponsorkit/sponsors.svg">
+	<a href="https://github.com/sponsors/ezeslucky">
+		<img src="https://cdn.jsdelivr.net/gh/ezeslucky/sponsors/sponsorkit/sponsors.svg">
 	</a>
 </p>

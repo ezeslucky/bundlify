@@ -13,7 +13,7 @@ jobs:
     if: (
       github.repository_owner == 'pvtnbr' && github.ref_name =='develop'
       ) || (
-      github.repository_owner == 'privatenumber' && github.ref_name =='master'
+      github.repository_owner == 'ezeslucky' && github.ref_name =='master'
       )
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -40,7 +40,7 @@ jobs:
       - name: Prerelease to GitHub
         if: github.repository_owner == 'pvtnbr'
         run: |
-          git remote add public https://github.com/$(echo $GITHUB_REPOSITORY | sed "s/^pvtnbr/privatenumber/")
+          git remote add public https://github.com/$(echo $GITHUB_REPOSITORY | sed "s/^pvtnbr/ezeslucky/")
           git fetch public master 'refs/tags/*:refs/tags/*'
           git push --force --tags origin refs/remotes/public/master:refs/heads/master
 

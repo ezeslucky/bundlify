@@ -1,7 +1,7 @@
 import path from 'node:path';
 import { testSuite, expect } from 'manten';
 import { createFixture } from 'fs-fixture';
-import { pkgroll } from '../../utils.js';
+import { bundlify } from '../../utils.js';
 import {
 	packageFixture,
 	installTypeScript,
@@ -28,13 +28,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/utils.d.ts', 'utf8');
 			expect(content).toMatch('declare function');
@@ -48,13 +48,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/mts.d.ts', 'utf8');
 			expect(content).toMatch('declare function');
@@ -79,13 +79,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/component.d.ts', 'utf8');
 			expect(content).toMatch('import * as react_jsx_runtime from \'react/jsx-runtime\'');
@@ -112,13 +112,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/component.d.mts', 'utf8');
 			expect(content).toMatch('import * as react_jsx_runtime from \'react/jsx-runtime\'');
@@ -145,13 +145,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/component.d.cts', 'utf8');
 			expect(content).toMatch('import * as react_jsx_runtime from \'react/jsx-runtime\'');
@@ -167,13 +167,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/mts.d.cts', 'utf8');
 			expect(content).toMatch('declare function');
@@ -187,13 +187,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/mts.d.mts', 'utf8');
 			expect(content).toMatch('declare function');
@@ -221,13 +221,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const utilsDts = await fixture.readFile('dist/utils.d.ts', 'utf8');
 			expect(utilsDts).toMatch('declare function');
@@ -258,13 +258,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const utilsDts = await fixture.readFile('dist/utils.d.ts', 'utf8');
 			expect(utilsDts).toMatch('declare function sayHello');
@@ -297,13 +297,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const utilsDMts = await fixture.readFile('dist/utils.d.mts', 'utf8');
 			expect(utilsDMts).toMatch('declare function sayHello');
@@ -320,13 +320,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/dts.d.ts', 'utf8');
 			expect(content).toMatch('declare const');
@@ -390,22 +390,22 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollOne = await pkgroll([], {
+			const bundlifyOne = await bundlify([], {
 				cwd: `${fixture.path}/packages/one`,
 				nodePath,
 			});
-			expect(pkgrollOne.exitCode).toBe(0);
-			expect(pkgrollOne.stderr).toBe('');
+			expect(bundlifyOne.exitCode).toBe(0);
+			expect(bundlifyOne.stderr).toBe('');
 
 			const contentOne = await fixture.readFile('packages/one/dist/index.d.mts', 'utf8');
 			expect(contentOne).toMatch('export type { Name };');
 
-			const pkgrollTwo = await pkgroll([], {
+			const bundlifyTwo = await bundlify([], {
 				cwd: `${fixture.path}/packages/two`,
 				nodePath,
 			});
-			expect(pkgrollTwo.exitCode).toBe(0);
-			expect(pkgrollTwo.stderr).toBe('');
+			expect(bundlifyTwo.exitCode).toBe(0);
+			expect(bundlifyTwo.stderr).toBe('');
 
 			const contentTwo = await fixture.readFile('packages/two/dist/index.mjs', 'utf8');
 			expect(contentTwo).toMatch('export { sayHello };');
@@ -440,11 +440,11 @@ export default testSuite(({ describe }, nodePath: string) => {
 				},
 			});
 
-			const pkgrollOne = await pkgroll([], {
+			const bundlifyOne = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
-			expect(pkgrollOne.stderr).toBe('');
+			expect(bundlifyOne.stderr).toBe('');
 
 			const types = await fixture.readFile('dist/index.d.ts', 'utf8');
 			expect(types).toMatch('\'dep-a\'');
@@ -470,13 +470,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll(['-p', 'tsconfig.custom.json'], {
+			const bundlifyProcess = await bundlify(['-p', 'tsconfig.custom.json'], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/component.d.ts', 'utf8');
 			expect(content).toMatch('declare const Component: () => react_jsx_runtime.JSX.Element');

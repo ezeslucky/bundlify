@@ -1,7 +1,7 @@
 import path from 'node:path';
 import { testSuite, expect } from 'manten';
 import { createFixture } from 'fs-fixture';
-import { pkgroll } from '../../utils.js';
+import { bundlify } from '../../utils.js';
 import { packageFixture, createPackageJson, createTsconfigJson } from '../../fixtures.js';
 
 export default testSuite(({ describe }, nodePath: string) => {
@@ -14,13 +14,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll(['--target', 'es2015'], {
+			const bundlifyProcess = await bundlify(['--target', 'es2015'], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/target.js', 'utf8');
 			expect(content).toMatch('Math.pow');
@@ -45,13 +45,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 					}),
 				});
 
-				const pkgrollProcess = await pkgroll(['--target', 'node12.19'], {
+				const bundlifyProcess = await bundlify(['--target', 'node12.19'], {
 					cwd: fixture.path,
 					nodePath,
 				});
 
-				expect(pkgrollProcess.exitCode).toBe(0);
-				expect(pkgrollProcess.stderr).toBe('');
+				expect(bundlifyProcess.exitCode).toBe(0);
+				expect(bundlifyProcess.stderr).toBe('');
 
 				expect(await fixture.readFile('dist/utils.js', 'utf8')).not.toMatch('node:');
 				expect(await fixture.readFile('dist/utils.mjs', 'utf8')).not.toMatch('node:');
@@ -79,13 +79,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 					}),
 				});
 
-				const pkgrollProcess = await pkgroll(['--target', 'node14.18'], {
+				const bundlifyProcess = await bundlify(['--target', 'node14.18'], {
 					cwd: fixture.path,
 					nodePath,
 				});
 
-				expect(pkgrollProcess.exitCode).toBe(0);
-				expect(pkgrollProcess.stderr).toBe('');
+				expect(bundlifyProcess.exitCode).toBe(0);
+				expect(bundlifyProcess.stderr).toBe('');
 
 				expect(await fixture.readFile('dist/utils.js', 'utf8')).toMatch('\'node:fs\'');
 				expect(await fixture.readFile('dist/utils.mjs', 'utf8')).toMatch('\'node:fs\'');

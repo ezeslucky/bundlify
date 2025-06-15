@@ -1,7 +1,7 @@
 import { testSuite, expect } from 'manten';
 import { createFixture } from 'fs-fixture';
 import { outdent } from 'outdent';
-import { pkgroll } from '../../utils.js';
+import { bundlify } from '../../utils.js';
 import { createPackageJson, createTsconfigJson, installTypeScript } from '../../fixtures.js';
 
 export default testSuite(({ describe }, nodePath: string) => {
@@ -18,13 +18,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll(['--env.NODE_ENV=development'], {
+			const bundlifyProcess = await bundlify(['--env.NODE_ENV=development'], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/index.js', 'utf8');
 			expect(content).toBe('console.log(1);\n');
@@ -42,13 +42,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll(['--env.NODE_ENV=development'], {
+			const bundlifyProcess = await bundlify(['--env.NODE_ENV=development'], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/index.js', 'utf8');
 			expect(content).toBe('console.log(1);\n');
@@ -89,13 +89,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll(['--minify'], {
+			const bundlifyProcess = await bundlify(['--minify'], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/index.mjs', 'utf8');
 			expect(content).toMatch('"foo"');
@@ -136,13 +136,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll(['--minify'], {
+			const bundlifyProcess = await bundlify(['--minify'], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/index.mjs', 'utf8');
 			expect(content).toMatch('"a"');
@@ -172,7 +172,7 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll([
+			const bundlifyProcess = await bundlify([
 				'--env.NODE_ENV=test',
 				'--tsconfig=tsconfig.build.json',
 			], {
@@ -180,8 +180,8 @@ export default testSuite(({ describe }, nodePath: string) => {
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/index.js', 'utf8');
 			expect(content.includes('function')).toBe(true);
@@ -207,7 +207,7 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll([
+			const bundlifyProcess = await bundlify([
 				'--env.NODE_ENV=test',
 				'--tsconfig=tsconfig.invalid.json',
 			], {
@@ -216,8 +216,8 @@ export default testSuite(({ describe }, nodePath: string) => {
 				reject: false,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(1);
-			// expect(pkgrollProcess.stderr).toMatch('Cannot resolve tsconfig at path:');
+			expect(bundlifyProcess.exitCode).toBe(1);
+			// expect(bundlifyProcess.stderr).toMatch('Cannot resolve tsconfig at path:');
 		});
 	});
 });

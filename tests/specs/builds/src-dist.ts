@@ -1,6 +1,6 @@
 import { testSuite, expect } from 'manten';
 import { createFixture } from 'fs-fixture';
-import { pkgroll } from '../../utils.js';
+import { bundlify } from '../../utils.js';
 import {
 	packageFixture, fixtureFiles, installTypeScript, createPackageJson,
 } from '../../fixtures.js';
@@ -19,15 +19,15 @@ export default testSuite(({ describe }, nodePath: string) => {
 				...installTypeScript,
 			});
 
-			const pkgrollProcess = await pkgroll(
+			const bundlifyProcess = await bundlify(
 				['--src', srcPath],
 				{
 					cwd: fixture.path,
 					nodePath,
 				},
 			);
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			expect(await fixture.exists('dist/nested/index.js')).toBe(true);
 			expect(await fixture.exists('dist/nested/index.mjs')).toBe(true);
@@ -46,7 +46,7 @@ export default testSuite(({ describe }, nodePath: string) => {
 				...installTypeScript,
 			});
 
-			const pkgrollProcess = await pkgroll(
+			const bundlifyProcess = await bundlify(
 				['--src', fixture.getPath(srcPath)],
 				{
 					cwd: fixture.path,
@@ -54,8 +54,8 @@ export default testSuite(({ describe }, nodePath: string) => {
 				},
 			);
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			expect(await fixture.exists('dist/nested/index.js')).toBe(true);
 			expect(await fixture.exists('dist/nested/index.mjs')).toBe(true);
@@ -74,12 +74,12 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll(['--dist', '.'], {
+			const bundlifyProcess = await bundlify(['--dist', '.'], {
 				cwd: fixture.path,
 				nodePath,
 			});
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			expect(await fixture.exists('nested/index.js')).toBe(true);
 			expect(await fixture.exists('nested/index.mjs')).toBe(true);

@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import { testSuite, expect } from 'manten';
 import { createFixture } from 'fs-fixture';
-import { pkgroll } from '../../utils.js';
+import { bundlify } from '../../utils.js';
 import {
 	packageFixture, createPackageJson, createTsconfigJson, fixtureDynamicImports,
 	fixtureDynamicImportUnresolvable,
@@ -17,13 +17,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/index.js', 'utf8');
 			expect(content).toMatch('module.exports =');
@@ -37,13 +37,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/mts.js', 'utf8');
 			expect(content).toMatch('exports.sayHello =');
@@ -57,13 +57,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/cts.js', 'utf8');
 			expect(content).toMatch('exports.sayHello =');
@@ -77,13 +77,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/cts.cjs', 'utf8');
 			expect(content).toMatch('exports.sayHello =');
@@ -98,13 +98,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/index.cjs', 'utf8');
 			expect(content).toMatch('module.exports =');
@@ -118,13 +118,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/mjs.cjs', 'utf8');
 			expect(content).toMatch('exports.sayHello =');
@@ -146,13 +146,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/component.cjs', 'utf8');
 			expect(content).toMatch('require(\'react/jsx-runtime\')');
@@ -168,13 +168,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/nested/index.js', 'utf8');
 			expect(content).toMatch('nested entry point');
@@ -188,13 +188,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/dynamic-imports.cjs', 'utf8');
 			expect(content).toMatch('require(');
@@ -206,7 +206,7 @@ export default testSuite(({ describe }, nodePath: string) => {
 			expect(files[2]).toMatch(/^ccc-/);
 		});
 
-		// https://github.com/privatenumber/pkgroll/issues/104
+		// https://github.com/ezeslucky/bundlify/issues/104
 		test('unresolvable dynamic import should not fail', async () => {
 			await using fixture = await createFixture({
 				...fixtureDynamicImportUnresolvable,
@@ -215,13 +215,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll([], {
+			const bundlifyProcess = await bundlify([], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toContain('[plugin rollup-plugin-dynamic-import-variables]');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toContain('[plugin rollup-plugin-dynamic-import-variables]');
 
 			const content = await fixture.readFile('dist/dynamic-imports.cjs', 'utf8');
 			expect(content).toMatch('import(');

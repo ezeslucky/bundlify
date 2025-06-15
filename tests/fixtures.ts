@@ -262,7 +262,7 @@ export const fixtureDynamicImports: FileTree = {
 	},
 };
 
-// https://github.com/privatenumber/pkgroll/issues/104
+// https://github.com/ezeslucky/bundlify/issues/104
 export const fixtureDynamicImportUnresolvable: FileTree = {
 	'package.json': createPackageJson({
 		main: './dist/dynamic-imports.js',

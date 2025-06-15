@@ -1,6 +1,6 @@
 import { testSuite, expect } from 'manten';
 import { createFixture } from 'fs-fixture';
-import { pkgroll } from '../../utils.js';
+import { bundlify } from '../../utils.js';
 import { packageFixture, createPackageJson } from '../../fixtures.js';
 
 export default testSuite(({ describe }, nodePath: string) => {
@@ -13,13 +13,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll(['--env.NODE_ENV=development', '--env.PROD=false'], {
+			const bundlifyProcess = await bundlify(['--env.NODE_ENV=development', '--env.PROD=false'], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/conditional-require.js', 'utf8');
 			expect(content).toMatch('development');
@@ -50,13 +50,13 @@ export default testSuite(({ describe }, nodePath: string) => {
 				},
 			});
 
-			const pkgrollProcess = await pkgroll(['--env.NODE_ENV=development', '--env.PROD=false'], {
+			const bundlifyProcess = await bundlify(['--env.NODE_ENV=development', '--env.PROD=false'], {
 				cwd: fixture.path,
 				nodePath,
 			});
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			const content = await fixture.readFile('dist/index.mjs', 'utf8');
 			expect(content).toMatch('development');

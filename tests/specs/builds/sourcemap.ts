@@ -1,6 +1,6 @@
 import { testSuite, expect } from 'manten';
 import { createFixture } from 'fs-fixture';
-import { pkgroll } from '../../utils.js';
+import { bundlify } from '../../utils.js';
 import { packageFixture, createPackageJson } from '../../fixtures.js';
 
 export default testSuite(({ describe }, nodePath: string) => {
@@ -14,7 +14,7 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll(
+			const bundlifyProcess = await bundlify(
 				['--sourcemap'],
 				{
 					cwd: fixture.path,
@@ -22,8 +22,8 @@ export default testSuite(({ describe }, nodePath: string) => {
 				},
 			);
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			expect(await fixture.exists('dist/index.js.map')).toBe(true);
 			expect(await fixture.exists('dist/index.mjs.map')).toBe(true);
@@ -38,7 +38,7 @@ export default testSuite(({ describe }, nodePath: string) => {
 				}),
 			});
 
-			const pkgrollProcess = await pkgroll(
+			const bundlifyProcess = await bundlify(
 				['--sourcemap=inline'],
 				{
 					cwd: fixture.path,
@@ -46,8 +46,8 @@ export default testSuite(({ describe }, nodePath: string) => {
 				},
 			);
 
-			expect(pkgrollProcess.exitCode).toBe(0);
-			expect(pkgrollProcess.stderr).toBe('');
+			expect(bundlifyProcess.exitCode).toBe(0);
+			expect(bundlifyProcess.stderr).toBe('');
 
 			expect(
 				await fixture.readFile('dist/index.js', 'utf8'),

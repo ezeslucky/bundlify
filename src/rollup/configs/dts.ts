@@ -28,7 +28,7 @@ export const getDtsConfig = async (
 				respectExternal: true,
 
 				/**
-                 * https://github.com/privatenumber/pkgroll/pull/54
+                 * https://github.com/ezeslucky/bundlify/pull/54
                  *
                  * I think this is necessary because TypeScript's composite requires
                  * that all files are passed in via `include`. However, it seems that
