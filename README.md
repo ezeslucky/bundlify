@@ -21,10 +21,7 @@ Write your code in TypeScript/ESM and run `bundlify` to get ESM/CommonJS/.d.ts o
 
 <br>
 
-<p align="center">
-	<a href="https://github.com/sponsors/ezeslucky/sponsorships?tier_id=398771"><img width="412" src="https://raw.githubusercontent.com/ezeslucky/sponsors/master/banners/assets/donate.webp"></a>
-	<a href="https://github.com/sponsors/ezeslucky/sponsorships?tier_id=397608"><img width="412" src="https://raw.githubusercontent.com/ezeslucky/sponsors/master/banners/assets/sponsor.webp"></a>
-</p>
+
 <p align="center"><sup><i>Already a sponsor?</i> Join the discussion in the <a href="https://github.com/pvtnbr/bundlify">Development repo</a>!</sup></p>
 
 ## Install
