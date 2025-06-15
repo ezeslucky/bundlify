@@ -22,7 +22,6 @@ Write your code in TypeScript/ESM and run `bundlify` to get ESM/CommonJS/.d.ts o
 <br>
 
 
-<p align="center"><sup><i>Already a sponsor?</i> Join the discussion in the <a href="https://github.com/pvtnbr/bundlify">Development repo</a>!</sup></p>
 
 ## Install
 ```sh
